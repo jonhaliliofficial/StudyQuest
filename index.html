@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f6f0">
+  <meta name="description" content="StudyQuest is a friendly study planner that turns small wins into progress.">
+  <title>StudyQuest — make progress, one quest at a time</title>
+  <link rel="icon" href="assets/images/studyquest-round-mark.png" type="image/png">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <section class="welcome-screen" id="welcome-screen" aria-labelledby="welcome-title" hidden>
+      <div class="welcome-art-panel">
+        <a class="brand brand-light" href="#welcome" aria-label="StudyQuest home">
+          <img src="assets/images/studyquest-round-mark.png" alt="" class="brand-mark brand-mark-image">
+          <span>studyquest<span class="brand-period">.</span></span>
+        </a>
+        <div class="welcome-art-copy">
+          <span class="eyebrow eyebrow-light">YOUR LITTLE STUDY SPACE</span>
+          <h1>Small steps.<br>Big <span>quests.</span></h1>
+          <p>A calm place to plan your work, focus for a while, and notice how far you've come.</p>
+        </div>
+        <img class="welcome-mascot" src="assets/images/study-buddy.png" alt="Pixel-art orange cat with books and a plant">
+        <div class="art-note"><span class="status-dot"></span> Your next chapter starts here</div>
+      </div>
+      <div class="welcome-form-panel">
+        <div class="welcome-form-top">
+          <span class="eyebrow">NO PRESSURE. JUST PROGRESS.</span>
+          <span class="local-pill"><img src="assets/icons/lock.svg" alt="" class="icon icon-xs"> Saved on this device</span>
+        </div>
+        <form id="profile-form" class="profile-form">
+          <div class="form-heading">
+            <h2 id="welcome-title">Make yourself at home.</h2>
+            <p>First, what should we call you?</p>
+          </div>
+          <label class="field-label" for="profile-name">Your name</label>
+          <input id="profile-name" name="name" type="text" maxlength="32" placeholder="e.g. Alex" autocomplete="nickname" required>
+          <label class="field-label" for="profile-subject">What are you studying most?</label>
+          <select id="profile-subject" name="favoriteSubject">
+            <option value="Computer Science">Computer Science</option>
+            <option value="Math">Math</option>
+            <option value="Science">Science</option>
+            <option value="English">English</option>
+            <option value="History">History</option>
+            <option value="Languages">Languages</option>
+            <option value="Other">A bit of everything</option>
+          </select>
+          <fieldset class="avatar-picker-fieldset">
+            <legend class="field-label">Choose your study buddy</legend>
+            <div class="cat-avatar-grid" id="welcome-avatar-picker">
+              <button class="cat-avatar-option" type="button" data-welcome-avatar="black" aria-pressed="false"><img src="assets/images/cat-avatars/black-cat.svg" alt=""><span>Black cat</span></button>
+              <button class="cat-avatar-option" type="button" data-welcome-avatar="white" aria-pressed="false"><img src="assets/images/cat-avatars/white-cat.svg" alt=""><span>White cat</span></button>
+              <button class="cat-avatar-option active" type="button" data-welcome-avatar="orange" aria-pressed="true"><img src="assets/images/cat-avatars/orange-cat.svg" alt=""><span>Orange cat</span></button>
+              <button class="cat-avatar-option" type="button" data-welcome-avatar="gray" aria-pressed="false"><img src="assets/images/cat-avatars/gray-cat.svg" alt=""><span>Gray cat</span></button>
+            </div>
+          </fieldset>
+          <fieldset class="welcome-theme-fieldset">
+            <legend class="field-label">Choose your theme</legend>
+            <div class="welcome-theme-grid">
+              <button class="welcome-theme-option active" type="button" data-theme-choice="classic" aria-pressed="true"><span class="theme-swatch theme-swatch-classic"></span><span>Lavender</span></button>
+              <button class="welcome-theme-option" type="button" data-theme-choice="soft" aria-pressed="false"><span class="theme-swatch theme-swatch-soft"></span><span>Mint</span></button>
+              <button class="welcome-theme-option" type="button" data-theme-choice="ocean" aria-pressed="false"><span class="theme-swatch theme-swatch-ocean"></span><span>Ocean</span></button>
+              <button class="welcome-theme-option" type="button" data-theme-choice="sunset" aria-pressed="false"><span class="theme-swatch theme-swatch-sunset"></span><span>Sunset</span></button>
+              <button class="welcome-theme-option" type="button" data-theme-choice="forest" aria-pressed="false"><span class="theme-swatch theme-swatch-forest"></span><span>Forest</span></button>
+              <button class="welcome-theme-option" type="button" data-theme-choice="butter" aria-pressed="false"><span class="theme-swatch theme-swatch-butter"></span><span>Butter</span></button>
+              <button class="welcome-theme-option" type="button" data-theme-choice="midnight" aria-pressed="false"><span class="theme-swatch theme-swatch-midnight"></span><span>Midnight</span></button>
+              <button class="welcome-theme-option" type="button" data-theme-choice="graphite" aria-pressed="false"><span class="theme-swatch theme-swatch-graphite"></span><span>Graphite</span></button>
+              <button class="welcome-theme-option" type="button" data-theme-choice="plum" aria-pressed="false"><span class="theme-swatch theme-swatch-plum"></span><span>Dark plum</span></button>
+              <button class="welcome-theme-option" type="button" data-theme-choice="dark-forest" aria-pressed="false"><span class="theme-swatch theme-swatch-dark-forest"></span><span>Deep forest</span></button>
+            </div>
+          </fieldset>
+          <button class="button button-primary button-wide" type="submit">Set up my space <img src="assets/icons/arrow-right.svg" alt="" class="icon icon-sm icon-dark"></button>
+          <p class="privacy-note">Prototype mode: this creates a profile in your browser only. There is no online account or password storage.</p>
+        </form>
+        <div class="welcome-form-footer"><span>Already set up here?</span> <button class="text-button" id="continue-saved-profile" type="button">Continue to StudyQuest</button></div>
+      </div>
+    </section>
+
+    <div class="app-layout" id="app-layout" hidden>
+      <div class="mobile-scrim" id="mobile-scrim" hidden></div>
+      <aside class="sidebar" id="sidebar">
+        <a class="brand brand-full-logo" href="#overview" data-view="overview" aria-label="StudyQuest overview">
+          <img src="assets/images/studyquest-round-mark.png" alt="" class="brand-full-image" width="58" height="58">
+          <span class="sidebar-brand-copy"><strong>StudyQuest<span class="brand-period">.</span></strong><small>YOUR STUDY SPACE</small></span>
+        </a>
+        <div class="workspace-label">YOUR WORKSPACE</div>
+        <nav class="main-nav" aria-label="Main navigation">
+          <button class="nav-item active" type="button" data-view="overview"><img src="assets/icons/home.svg" class="icon" alt=""><span>Overview</span></button>
+          <button class="nav-item" type="button" data-view="quests"><img src="assets/icons/check-square.svg" class="icon" alt=""><span>My quests</span><span class="nav-count" id="nav-quest-count">0</span></button>
+          <button class="nav-item" type="button" data-view="focus"><img src="assets/icons/clock.svg" class="icon" alt=""><span>Focus room</span></button>
+          <button class="nav-item" type="button" data-view="progress"><img src="assets/icons/chart.svg" class="icon" alt=""><span>Progress</span></button>
+          <button class="nav-item" type="button" data-view="about"><img src="assets/icons/info.svg" class="icon" alt=""><span>About StudyQuest</span></button>
+        </nav>
+        <div class="sidebar-divider"></div>
+        <div class="workspace-label">YOUR SPACE</div>
+        <nav class="main-nav" aria-label="Personal settings">
+          <button class="nav-item" type="button" data-view="settings"><img src="assets/icons/sliders.svg" class="icon" alt=""><span>Settings</span></button>
+        </nav>
+        <div class="sidebar-spacer"></div>
+        <div class="sidebar-help-card">
+          <div class="help-icon"><img src="assets/icons/sparkles.svg" class="icon" alt=""></div>
+          <p class="help-title">A tiny reminder</p>
+          <p class="help-copy">You don't have to do it all today. Just start somewhere.</p>
+        </div>
+        <div class="sidebar-profile" id="sidebar-profile">
+          <div class="avatar" id="sidebar-avatar"><img src="assets/images/cat-avatars/orange-cat.svg" alt="Orange cat avatar"></div>
+          <div class="profile-details">
+            <strong id="sidebar-name">Student</strong>
+            <span class="sidebar-rank-label" id="sidebar-level">LV 01 · Curious Sprout</span>
+            <div class="sidebar-rank-track" role="progressbar" id="sidebar-level-track" aria-label="Progress toward next level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="sidebar-level-progress-fill"></span></div>
+          </div>
+          <button class="icon-button profile-menu-button" id="sidebar-profile-button" type="button" aria-label="Open settings"><img src="assets/icons/more.svg" alt="" class="icon"></button>
+        </div>
+      </aside>
+
+      <main class="main-area">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="icon-button mobile-menu-button" id="mobile-menu-button" type="button" aria-label="Open navigation"><img src="assets/icons/menu.svg" class="icon" alt=""></button>
+            <div class="breadcrumbs"><span>Study space</span><img src="assets/icons/chevron-right.svg" alt="" class="icon icon-xs"><strong id="breadcrumb-current">Overview</strong></div>
+          </div>
+          <div class="topbar-right">
+            <div class="today-label"><img src="assets/icons/calendar.svg" alt="" class="icon icon-sm"><span id="today-label">Today</span></div>
+            <div class="live-clock-card" aria-label="Current local time"><img src="assets/icons/clock.svg" class="icon icon-sm" alt=""><time id="live-clock" datetime="">00:00:00</time><span id="clock-format-note">LOCAL TIME</span></div>
+            <button class="topbar-level-reminder" id="topbar-level-reminder" type="button" data-go-view="progress" aria-label="View your level progress">
+              <span class="topbar-level-icon"><img src="assets/icons/medal.svg" class="icon" alt=""></span>
+              <span class="topbar-level-copy"><strong id="topbar-level-number">LEVEL 01</strong><span id="topbar-level-name">Curious Sprout</span><span class="topbar-level-track"><span id="topbar-level-fill"></span></span></span>
+            </button>
+            <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-label="Switch to a dark theme" title="Switch to a dark theme"><img src="assets/icons/moon.svg" class="icon" alt=""></button>
+          </div>
+        </header>
+
+        <div class="view-container">
+          <section class="view view-active" id="view-overview" data-page="overview">
+            <div class="page-heading overview-heading">
+              <div><span class="eyebrow" id="greeting-eyebrow">A FRESH LITTLE START</span><h1 id="greeting-title">Hey there, Alex.</h1><p>Let's make today feel a little more manageable.</p></div>
+              <button class="button button-primary" type="button" data-open-task><img src="assets/icons/plus.svg" class="icon icon-sm icon-dark" alt=""><span>New quest</span></button>
+            </div>
+
+            <section class="welcome-banner" aria-label="StudyQuest introduction">
+              <div class="banner-copy"><span class="banner-kicker"><img src="assets/icons/sparkles.svg" class="icon icon-xs" alt=""> YOUR SPACE, YOUR PACE</span><h2>Make room for<br><em>what matters.</em></h2><p>Pick one thing, give it your attention, and let the little wins add up.</p><button type="button" class="banner-link" data-go-view="focus">Head to focus room <img src="assets/icons/arrow-right.svg" alt="" class="icon icon-sm"></button></div>
+              <div class="banner-art"><div class="sun-shape"></div><img src="assets/images/study-buddy.png" alt="Study buddy cat surrounded by study supplies"></div>
+            </section>
+
+            <div class="section-heading-row"><div><h2>Your progress</h2><p>A few numbers to keep you going.</p></div><button class="quiet-link" type="button" data-go-view="progress">See all progress <img src="assets/icons/arrow-right.svg" alt="" class="icon icon-xs"></button></div>
+            <div class="stats-grid">
+              <article class="stat-card"><div class="stat-icon stat-lilac"><img src="assets/icons/sparkles.svg" alt="" class="icon"></div><span class="stat-label">Total XP</span><div class="stat-number" id="stat-xp">0 <small>XP</small></div><span class="stat-foot" id="stat-xp-note">Your first win is waiting</span></article>
+              <article class="stat-card"><div class="stat-icon stat-green"><img src="assets/icons/check-circle.svg" alt="" class="icon"></div><span class="stat-label">Quests completed</span><div class="stat-number" id="stat-completed">0</div><span class="stat-foot">All-time completed quests</span></article>
+              <article class="stat-card"><div class="stat-icon stat-peach"><img src="assets/icons/flame.svg" alt="" class="icon"></div><span class="stat-label">Current streak</span><div class="stat-number" id="stat-streak">0 <small>days</small></div><span class="stat-foot" id="stat-streak-note">Start a streak today</span></article>
+              <article class="stat-card"><div class="stat-icon stat-blue"><img src="assets/icons/clock.svg" alt="" class="icon"></div><span class="stat-label">Focus time</span><div class="stat-number" id="stat-focus">0 <small>min</small></div><span class="stat-foot">Time spent in focus sessions</span></article>
+            </div>
+
+            <div class="dashboard-columns">
+              <section class="panel quest-panel">
+                <div class="panel-heading"><div><h2>Today's quests</h2><p id="today-quest-subtitle">A few things on your list.</p></div><button class="icon-button subtle-button" type="button" data-go-view="quests" aria-label="View all quests"><img src="assets/icons/arrow-right.svg" alt="" class="icon"></button></div>
+                <div class="mini-quest-list" id="overview-task-list"></div>
+                <div class="panel-bottom"><span id="overview-task-count">0 quests to go</span><button class="quiet-link" type="button" data-go-view="quests">Open quest list <img src="assets/icons/arrow-right.svg" alt="" class="icon icon-xs"></button></div>
+              </section>
+              <section class="panel daily-goal-panel">
+                <div class="panel-heading"><div><h2>Daily goal</h2><p>Small steps make a difference.</p></div><div class="goal-icon"><img src="assets/icons/target.svg" class="icon" alt=""></div></div>
+                <div class="goal-score"><strong id="daily-progress-count">0/3</strong><span id="daily-progress-percent">0%</span></div>
+                <div class="progress-track" role="progressbar" aria-label="Daily goal progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="daily-progress-fill" class="progress-fill" style="width:0%"></div></div>
+                <p class="goal-message" id="daily-goal-message">Complete 3 quests today to hit your goal.</p>
+                <div class="goal-adjust"><span>Daily target</span><div class="stepper"><button type="button" id="goal-minus" aria-label="Decrease daily goal">−</button><strong id="daily-goal-value">3</strong><button type="button" id="goal-plus" aria-label="Increase daily goal">+</button></div></div>
+              </section>
+            </div>
+
+            <section class="panel quick-focus-panel"><div class="quick-focus-icon"><img src="assets/icons/clock.svg" alt="" class="icon"></div><div class="quick-focus-copy"><h2>Need a little focus?</h2><p>Put the distractions aside and give one task your attention.</p></div><button class="button button-secondary" type="button" data-go-view="focus">Start a session <img src="assets/icons/arrow-right.svg" alt="" class="icon icon-sm"></button></section>
+          </section>
+          <section class="view" id="view-quests" data-page="quests" hidden>
+            <div class="page-heading"><div><span class="eyebrow">ONE THING AT A TIME</span><h1>My quests</h1><p>Everything you want to get done, all in one calm place.</p></div><button class="button button-primary" type="button" data-open-task><img src="assets/icons/plus.svg" class="icon icon-sm icon-dark" alt=""><span>New quest</span></button></div>
+            <div class="quest-toolbar"><label class="search-field"><img src="assets/icons/search.svg" alt="" class="icon icon-sm"><input type="search" id="task-search" placeholder="Search quests..." aria-label="Search quests"></label><label class="select-field"><span class="sr-only">Filter by subject</span><select id="subject-filter"><option value="all">All subjects</option><option>Computer Science</option><option>Math</option><option>Science</option><option>English</option><option>History</option><option>Languages</option><option>Other</option></select><img src="assets/icons/chevron-down.svg" alt="" class="icon icon-xs"></label></div>
+            <div class="filter-tabs" role="group" aria-label="Filter quests"><button class="filter-tab active" type="button" data-filter="all">All quests <span id="filter-all-count">0</span></button><button class="filter-tab" type="button" data-filter="active">To do <span id="filter-active-count">0</span></button><button class="filter-tab" type="button" data-filter="completed">Completed <span id="filter-completed-count">0</span></button></div>
+            <section class="panel quest-list-panel"><div class="quest-list-header"><div><h2 id="quest-list-heading">All quests</h2><p id="quest-list-subtitle">Keep your next step in sight.</p></div><button type="button" class="quiet-link" id="clear-completed">Clear completed</button></div><div class="full-quest-list" id="full-task-list"></div><div class="empty-state" id="quest-empty-state" hidden><div class="empty-state-icon"><img src="assets/icons/coffee.svg" alt="" class="icon"></div><h3>Nothing here just yet</h3><p>Add a quest, or try a different filter.</p><button class="button button-primary" type="button" data-open-task><img src="assets/icons/plus.svg" alt="" class="icon icon-sm icon-dark">Add your first quest</button></div><div class="list-footer"><span id="quest-list-footer">One step at a time.</span><span class="keyboard-tip"><kbd>/</kbd> to search</span></div></section>
+          </section>
+          <section class="view" id="view-focus" data-page="focus" hidden>
+            <div class="page-heading"><div><span class="eyebrow">A LITTLE SPACE TO THINK</span><h1>Focus room</h1><p>Choose one thing, settle in, and let the rest wait.</p></div></div>
+            <div class="focus-layout">
+              <section class="panel timer-panel"><div class="timer-overline"><span class="live-dot"></span><span id="timer-mode-label">FOCUS SESSION</span></div><div class="timer-ring-wrap"><svg class="timer-ring" viewBox="0 0 260 260" role="img" aria-label="Focus timer countdown"><circle class="timer-ring-bg" cx="130" cy="130" r="115"></circle><circle class="timer-ring-progress" id="timer-ring-progress" cx="130" cy="130" r="115"></circle></svg><div class="timer-readout"><span id="timer-display">25:00</span><small id="timer-status">READY WHEN YOU ARE</small></div></div><div class="timer-presets" role="group" aria-label="Focus duration"><button type="button" data-minutes="15">15 min</button><button type="button" class="selected" data-minutes="25">25 min</button><button type="button" data-minutes="45">45 min</button><button type="button" data-minutes="50">50 min</button></div><div class="timer-controls"><button class="button button-primary" id="timer-start" type="button"><img src="assets/icons/play.svg" class="icon icon-sm icon-dark" alt=""><span>Start focus</span></button><button class="button button-outline" id="timer-reset" type="button">Reset</button></div><p class="timer-note" id="timer-note">Quiet the noise. You've got this.</p></section>
+              <div class="focus-side-column"><section class="panel focus-task-panel"><div class="panel-heading"><div><h2>What are you working on?</h2><p>Keep your session pointed at one thing.</p></div><div class="focus-mini-icon"><img src="assets/icons/book-open.svg" class="icon" alt=""></div></div><label class="field-label" for="focus-task-select">Choose a quest</label><select id="focus-task-select" class="control-select"><option value="">No specific quest</option></select><div id="focus-selected-task" class="selected-task-note">Any focused effort counts.</div><button type="button" class="quiet-link" data-go-view="quests">Manage quests <img src="assets/icons/arrow-right.svg" alt="" class="icon icon-xs"></button></section><section class="panel focus-tip-panel"><div class="tip-heading"><img src="assets/icons/lightbulb.svg" alt="" class="icon"><span>A small tip</span></div><p id="focus-tip-text">Put your phone out of reach and close the tabs you don't need. Make it easier to focus than to drift.</p><button class="quiet-link" id="new-focus-tip" type="button">Another tip <img src="assets/icons/refresh.svg" alt="" class="icon icon-xs"></button></section><section class="focus-session-summary"><div><span class="summary-label">FOCUS TIME</span><strong id="focus-page-total">0 min</strong></div><div class="summary-line"></div><div><span class="summary-label">SESSIONS TODAY</span><strong id="focus-page-sessions">0</strong></div></section></div>
+            </div>
+          </section>
+          <section class="view" id="view-progress" data-page="progress" hidden>
+            <div class="page-heading"><div><span class="eyebrow">LOOK HOW FAR YOU'VE COME</span><h1>Your progress</h1><p>It's not about being perfect. It's about coming back.</p></div></div>
+            <div class="level-banner"><div class="level-emblem"><img src="assets/icons/medal.svg" class="icon" alt=""></div><div class="level-main"><span class="eyebrow">YOUR CURRENT RANK</span><h2><span id="progress-level-name">Curious Sprout</span> <span class="level-tag" id="progress-level-number">Level 1</span></h2><div class="level-progress-track"><div class="level-progress-fill" id="level-progress-fill" style="width:0%"></div></div><p id="level-progress-copy">0 / 100 XP · 100 XP to the next level</p><div class="level-next-unlock"><span class="level-next-icon"><img src="assets/icons/trophy.svg" class="icon" alt=""></span><div class="level-next-copy"><strong id="progress-reward-title">Current rank: Curious Sprout</strong><span id="progress-reward-copy">Your rank badge updates as you level up.</span></div><span class="level-next-name" id="progress-next-rank">Next: Note Taker</span></div></div><div class="level-total"><strong id="progress-total-xp">0</strong><span>TOTAL XP</span></div></div>
+            <section class="panel rank-roadmap-panel"><div class="panel-heading"><div><h2>Your rank path</h2><p>Every rank has a title to earn. Each step takes a little more XP.</p></div><span class="rank-roadmap-current" id="rank-roadmap-current">Level 1 active</span></div><div class="rank-roadmap-grid" id="rank-roadmap"></div></section>
+            <div class="progress-stats-grid"><article class="panel progress-stat"><span class="stat-label">Quests completed</span><strong id="progress-completed">0</strong><p>Every finished task counts.</p></article><article class="panel progress-stat"><span class="stat-label">Focus minutes</span><strong id="progress-focus-minutes">0</strong><p>Time you've given your goals.</p></article><article class="panel progress-stat"><span class="stat-label">Best streak</span><strong id="progress-best-streak">0 <small>days</small></strong><p>Days in a row with a win.</p></article></div>
+            <section class="panel weekly-panel"><div class="panel-heading"><div><h2>Your week, at a glance</h2><p>Quests finished each day.</p></div><span class="chart-legend"><span></span> Completed quests</span></div><div class="weekly-chart" id="weekly-chart" aria-label="Weekly completed quests chart"></div><div class="chart-footnote">A completed quest is counted once per day, even if you later move it back to your to-do list.</div></section>
+            <section class="panel achievement-panel"><div class="panel-heading"><div><h2>Little milestones</h2><p>Keep collecting these as you go.</p></div></div><div class="achievement-grid" id="achievement-grid"></div></section>
+          </section>
+          <section class="view" id="view-about" data-page="about" hidden>
+            <div class="page-heading about-page-heading"><div><span class="eyebrow">A LITTLE ABOUT THIS SPACE</span><h1>Meet StudyQuest</h1><p>A study planner with a little game spirit, built to make the next step easier to see.</p></div></div>
+            <section class="about-hero panel">
+              <div class="about-hero-copy"><span class="about-kicker">PLAN · FOCUS · GROW</span><h2>Make studying feel<br><em>less overwhelming.</em></h2><p>StudyQuest turns a big pile of schoolwork into smaller quests. You plan what matters, focus on one task at a time, and see your effort build up through XP, ranks and progress history.</p><button class="button button-primary" type="button" data-go-view="quests">Make your first quest <img src="assets/icons/arrow-right.svg" class="icon icon-sm icon-dark" alt=""></button></div>
+              <div class="about-hero-art"><div class="about-orbit orbit-one"></div><div class="about-orbit orbit-two"></div><img src="assets/images/studyquest-round-mark.png" alt="StudyQuest cat mascot" class="about-round-logo"><span class="about-sticker sticker-top">+25 XP</span><span class="about-sticker sticker-bottom">ONE STEP AT A TIME</span></div>
+            </section>
+            <div class="section-heading-row"><div><h2>What you can do here</h2><p>The main tools, without the clutter.</p></div></div>
+            <div class="about-feature-grid">
+              <article class="panel about-feature-card"><div class="about-feature-icon feature-lavender"><img src="assets/icons/check-square.svg" class="icon" alt=""></div><h3>Turn work into quests</h3><p>Create tasks, group them by subject, set priorities and due dates, then filter the list to see what needs attention.</p></article>
+              <article class="panel about-feature-card"><div class="about-feature-icon feature-peach"><img src="assets/icons/clock.svg" class="icon" alt=""></div><h3>Make room for focus</h3><p>Use a simple focus timer, pick the quest you're working on and record sessions as part of your study history.</p></article>
+              <article class="panel about-feature-card"><div class="about-feature-icon feature-green"><img src="assets/icons/medal.svg" class="icon" alt=""></div><h3>Earn your next rank</h3><p>Complete quests and focus sessions to earn XP. Your rank path gives the effort a visible milestone to work toward.</p></article>
+              <article class="panel about-feature-card"><div class="about-feature-icon feature-blue"><img src="assets/icons/chart.svg" class="icon" alt=""></div><h3>See your progress</h3><p>Track completed work, focus minutes, streaks and small achievements so you can see patterns over time.</p></article>
+              <article class="panel about-feature-card"><div class="about-feature-icon feature-pink"><img src="assets/icons/palette.svg" class="icon" alt=""></div><h3>Make it feel like yours</h3><p>Choose a color theme, font, text size, clock format and study buddy cat. Your choices stay saved on this device.</p></article>
+              <article class="panel about-feature-card"><div class="about-feature-icon feature-yellow"><img src="assets/icons/lock.svg" class="icon" alt=""></div><h3>Private by design</h3><p>This version runs in your browser. It has no online account or cloud sync, and your profile and tasks are stored locally.</p></article>
+            </div>
+            <section class="panel about-how-panel"><div class="section-heading-row"><div><h2>How the study loop works</h2><p>Four simple steps, then repeat whenever you need.</p></div></div><div class="about-steps"><article><span>01</span><h3>Write it down</h3><p>Make the next task small enough to start.</p></article><article><span>02</span><h3>Focus for a while</h3><p>Choose a session length and work on one thing.</p></article><article><span>03</span><h3>Collect the win</h3><p>Finish the quest, gain XP and move toward a new rank.</p></article><article><span>04</span><h3>Look back</h3><p>Use your progress page to see what you've built.</p></article></div></section>
+            <section class="about-bottom-note"><img src="assets/images/cat-avatars/orange-cat.svg" alt="Orange cat avatar"><div><h2>Small progress still counts.</h2><p>StudyQuest isn't here to make every day perfect. It's here to help you work out the next step and give yourself credit for taking it.</p></div><button class="button button-outline" type="button" data-go-view="overview">Back to overview <img src="assets/icons/arrow-right.svg" class="icon icon-sm" alt=""></button></section>
+          </section>
+          <section class="view" id="view-settings" data-page="settings" hidden>
+            <div class="page-heading"><div><span class="eyebrow">MAKE IT YOURS</span><h1>Settings</h1><p>A few little things to make this space feel right.</p></div></div>
+            <section class="panel settings-panel"><div class="settings-section"><div class="settings-icon"><img src="assets/icons/user.svg" class="icon" alt=""></div><div class="settings-content"><h2>Your profile</h2><p>Change the name StudyQuest uses to greet you.</p><form id="settings-profile-form" class="settings-inline-form"><label class="sr-only" for="settings-name">Display name</label><input id="settings-name" type="text" maxlength="32" required><button class="button button-secondary" type="submit">Save name</button></form><div class="cat-avatar-settings"><span class="field-label">Study buddy</span><p>Pick the cat that represents you in your sidebar.</p><div class="cat-avatar-grid cat-avatar-grid-settings" id="settings-avatar-picker">
+                  <button class="cat-avatar-option" type="button" data-settings-avatar="black" aria-pressed="false"><img src="assets/images/cat-avatars/black-cat.svg" alt=""><span>Black cat</span></button>
+                  <button class="cat-avatar-option" type="button" data-settings-avatar="white" aria-pressed="false"><img src="assets/images/cat-avatars/white-cat.svg" alt=""><span>White cat</span></button>
+                  <button class="cat-avatar-option" type="button" data-settings-avatar="orange" aria-pressed="false"><img src="assets/images/cat-avatars/orange-cat.svg" alt=""><span>Orange cat</span></button>
+                  <button class="cat-avatar-option" type="button" data-settings-avatar="gray" aria-pressed="false"><img src="assets/images/cat-avatars/gray-cat.svg" alt=""><span>Gray cat</span></button>
+                </div></div></div></div><div class="settings-section"><div class="settings-icon"><img src="assets/icons/target.svg" class="icon" alt=""></div><div class="settings-content"><h2>Daily goal</h2><p>Set how many quests you want to complete each day.</p><div class="settings-goal-row"><span>Your target</span><div class="stepper"><button type="button" id="settings-goal-minus" aria-label="Decrease daily goal">−</button><strong id="settings-goal-value">3</strong><button type="button" id="settings-goal-plus" aria-label="Increase daily goal">+</button></div></div></div></div><div class="settings-section"><div class="settings-icon"><img src="assets/icons/palette.svg" class="icon" alt=""></div><div class="settings-content"><h2>Appearance</h2><p>Pick the color palette that feels easiest to study with.</p><div class="theme-options">
+              <button type="button" class="theme-option active" data-theme-choice="classic" aria-pressed="true"><span class="theme-swatch theme-swatch-classic"></span><span>Lavender & cream</span><span class="theme-check"><img src="assets/icons/check.svg" class="icon icon-xs" alt=""></span></button>
+              <button type="button" class="theme-option" data-theme-choice="soft" aria-pressed="false"><span class="theme-swatch theme-swatch-soft"></span><span>Mint & peach</span><span class="theme-check"><img src="assets/icons/check.svg" class="icon icon-xs" alt=""></span></button>
+              <button type="button" class="theme-option" data-theme-choice="ocean" aria-pressed="false"><span class="theme-swatch theme-swatch-ocean"></span><span>Ocean breeze</span><span class="theme-check"><img src="assets/icons/check.svg" class="icon icon-xs" alt=""></span></button>
+              <button type="button" class="theme-option" data-theme-choice="sunset" aria-pressed="false"><span class="theme-swatch theme-swatch-sunset"></span><span>Sunset peach</span><span class="theme-check"><img src="assets/icons/check.svg" class="icon icon-xs" alt=""></span></button>
+              <button type="button" class="theme-option" data-theme-choice="forest" aria-pressed="false"><span class="theme-swatch theme-swatch-forest"></span><span>Forest sage</span><span class="theme-check"><img src="assets/icons/check.svg" class="icon icon-xs" alt=""></span></button>
+              <button type="button" class="theme-option" data-theme-choice="butter" aria-pressed="false"><span class="theme-swatch theme-swatch-butter"></span><span>Butter day</span><span class="theme-check"><img src="assets/icons/check.svg" class="icon icon-xs" alt=""></span></button>
+              <button type="button" class="theme-option" data-theme-choice="midnight" aria-pressed="false"><span class="theme-swatch theme-swatch-midnight"></span><span>Midnight blue</span><span class="theme-check"><img src="assets/icons/check.svg" class="icon icon-xs" alt=""></span></button>
+              <button type="button" class="theme-option" data-theme-choice="graphite" aria-pressed="false"><span class="theme-swatch theme-swatch-graphite"></span><span>Graphite</span><span class="theme-check"><img src="assets/icons/check.svg" class="icon icon-xs" alt=""></span></button>
+              <button type="button" class="theme-option" data-theme-choice="plum" aria-pressed="false"><span class="theme-swatch theme-swatch-plum"></span><span>Dark plum</span><span class="theme-check"><img src="assets/icons/check.svg" class="icon icon-xs" alt=""></span></button>
+              <button type="button" class="theme-option" data-theme-choice="dark-forest" aria-pressed="false"><span class="theme-swatch theme-swatch-dark-forest"></span><span>Deep forest</span><span class="theme-check"><img src="assets/icons/check.svg" class="icon icon-xs" alt=""></span></button>
+            </div></div></div><div class="settings-section"><div class="settings-icon"><img src="assets/icons/book-open.svg" class="icon" alt=""></div><div class="settings-content"><h2>Reading and display</h2><p>Choose a typeface and text size that are comfortable to read.</p><div class="preference-grid"><label class="preference-field" for="settings-font"><span>Font</span><select id="settings-font"><option value="system">System</option><option value="rounded">Rounded</option><option value="serif">Serif</option><option value="mono">Monospace</option></select></label><label class="preference-field" for="settings-text-size"><span>Text size</span><select id="settings-text-size"><option value="normal">Normal</option><option value="large">Large</option><option value="extra-large">Extra large</option></select></label><label class="preference-field" for="settings-clock-format"><span>Clock format</span><select id="settings-clock-format"><option value="24">24-hour</option><option value="12">12-hour</option></select></label><label class="preference-field" for="settings-motion"><span>Animations</span><select id="settings-motion"><option value="system">Follow device</option><option value="full">Full motion</option><option value="reduced">Reduced motion</option></select></label></div></div></div><div class="settings-section"><div class="settings-icon"><img src="assets/icons/info.svg" class="icon" alt=""></div><div class="settings-content"><h2>Website tour</h2><p>Take a quick walkthrough of the pages and tools.</p><button class="button button-outline" type="button" id="restart-tutorial"><img src="assets/icons/book-open.svg" class="icon icon-sm" alt=""> Start the tour</button></div></div><div class="settings-section"><div class="settings-icon"><img src="assets/icons/database.svg" class="icon" alt=""></div><div class="settings-content"><h2>Your data</h2><p>Your prototype data is saved only in this browser. Export a backup before resetting it.</p><div class="settings-data-actions"><button class="button button-outline" type="button" id="export-data"><img src="assets/icons/download.svg" class="icon icon-sm" alt="">Export backup</button><button class="button button-danger-outline" type="button" id="reset-data">Reset prototype</button></div></div></div><div class="prototype-note"><img src="assets/icons/info.svg" class="icon" alt=""><p><strong>Prototype note</strong><br>There is no online account, cloud sync, or secure authentication in this version. Your profile and progress stay on this device.</p></div></section>
+          </section>
+        </div>
+        <footer class="app-footer"><span>StudyQuest <span class="footer-dot">·</span> made for small wins</span><span class="footer-local"><img src="assets/icons/lock.svg" alt="" class="icon icon-xs"> Local prototype</span></footer>
+      </main>
+    </div>
+  </div>
+
+  <div class="tutorial-backdrop" id="tutorial-modal" hidden>
+    <section class="tutorial-dialog" role="dialog" aria-modal="true" aria-labelledby="tutorial-title" aria-describedby="tutorial-copy">
+      <button class="icon-button tutorial-close" type="button" id="tutorial-close" aria-label="Close website tour"><img src="assets/icons/x.svg" class="icon" alt=""></button>
+      <div class="tutorial-progress-row"><span id="tutorial-step-label">STEP 1 OF 5</span><div class="tutorial-progress-track"><span id="tutorial-progress-fill"></span></div></div>
+      <div class="tutorial-illustration" id="tutorial-illustration"><img src="assets/icons/home.svg" class="icon" alt=""></div>
+      <p class="eyebrow tutorial-kicker" id="tutorial-kicker">YOUR QUICK TOUR</p>
+      <h2 id="tutorial-title">Your overview</h2>
+      <p class="tutorial-copy" id="tutorial-copy">See your next quests, daily goal and recent progress here.</p>
+      <div class="tutorial-location" id="tutorial-location">Overview <span>·</span> Your starting page</div>
+      <div class="tutorial-actions"><button class="text-button" id="tutorial-skip" type="button">Skip tour</button><div><button class="button button-outline" id="tutorial-previous" type="button" disabled>Back</button><button class="button button-primary" id="tutorial-next" type="button">Next <img src="assets/icons/arrow-right.svg" class="icon icon-sm icon-dark" alt=""></button></div></div>
+    </section>
+  </div>
+  <div class="modal-backdrop" id="task-modal" hidden>
+    <section class="task-dialog" role="dialog" aria-modal="true" aria-labelledby="task-modal-title">
+      <div class="dialog-header"><div><span class="eyebrow" id="task-modal-kicker">A NEW LITTLE MISSION</span><h2 id="task-modal-title">Add a quest</h2></div><button class="icon-button" type="button" id="close-task-modal" aria-label="Close dialog"><img src="assets/icons/x.svg" class="icon" alt=""></button></div>
+      <form id="task-form"><label class="field-label" for="task-title">Quest name</label><input id="task-title" type="text" maxlength="100" placeholder="e.g. Review chapter 4" required><div class="form-row"><div class="form-field"><label class="field-label" for="task-subject">Subject</label><select id="task-subject"><option>Computer Science</option><option>Math</option><option>Science</option><option>English</option><option>History</option><option>Languages</option><option>Other</option></select></div><div class="form-field"><label class="field-label" for="task-priority">Priority</label><select id="task-priority"><option value="normal">Normal</option><option value="high">High</option><option value="low">Low</option></select></div></div><div class="form-row"><div class="form-field"><label class="field-label" for="task-due">Due date <span class="optional-label">optional</span></label><input id="task-due" type="date"></div><div class="form-field"><label class="field-label" for="task-duration">Estimated time</label><select id="task-duration"><option value="15">15 minutes</option><option value="25" selected>25 minutes</option><option value="30">30 minutes</option><option value="45">45 minutes</option><option value="60">1 hour</option><option value="90">1.5 hours</option></select></div></div><p class="form-error" id="task-form-error" hidden></p><div class="dialog-actions"><button class="button button-outline" type="button" id="cancel-task">Cancel</button><button class="button button-primary" type="submit" id="save-task-button">Add quest <img src="assets/icons/arrow-right.svg" class="icon icon-sm icon-dark" alt=""></button></div></form>
+    </section>
+  </div>
+
+  <div class="level-up-backdrop" id="level-up-modal" hidden>
+    <section class="level-up-dialog" role="dialog" aria-modal="true" aria-labelledby="level-up-title" aria-describedby="level-up-copy">
+      <button class="icon-button level-up-close" id="level-up-close" type="button" aria-label="Close level up message"><img src="assets/icons/x.svg" class="icon" alt=""></button>
+      <div class="level-up-halo" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="level-up-seal"><img src="assets/icons/medal.svg" class="icon" alt=""><span id="level-up-number">02</span></div>
+      <p class="level-up-kicker">RANK UP</p>
+      <h2 id="level-up-title">You leveled up!</h2>
+      <h3 id="level-up-rank">Note Taker</h3>
+      <p class="level-up-copy" id="level-up-copy">You earned enough XP to reach your next rank.</p>
+      <div class="level-up-reward"><span class="level-up-reward-icon"><img src="assets/icons/trophy.svg" class="icon" alt=""></span><span><strong id="level-up-reward-title">New rank unlocked</strong><small id="level-up-reward-copy">Your sidebar badge has been upgraded.</small></span></div>
+      <button class="button button-primary level-up-continue" id="level-up-continue" type="button">Keep going <img src="assets/icons/arrow-right.svg" class="icon icon-sm icon-dark" alt=""></button>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
