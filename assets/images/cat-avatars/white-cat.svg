@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+<title id="title">White cat avatar placeholder</title>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eee8ff"/><stop offset="1" stop-color="#d8f1e5"/></linearGradient></defs>
+<circle cx="64" cy="64" r="62" fill="url(#bg)"/>
+<path d="M28 47 30 17 52 33Q64 27 76 33L98 17 100 48Q108 57 106 75 101 104 64 108 27 104 22 75 20 59 28 47Z" fill="#fff9ed" stroke="#352c49" stroke-width="4" stroke-linejoin="round"/>
+<path d="M36 41 36 27 49 38Z M79 38 92 27 92 42Z" fill="#e5a5b4"/>
+<path d="M39 72Q42 60 51 69M77 69Q86 60 89 72" fill="none" stroke="#3c3548" stroke-width="6" stroke-linecap="round"/>
+<ellipse cx="64" cy="82" rx="22" ry="16" fill="#d8d1c4"/>
+<path d="M58 78Q64 83 70 78Q69 86 64 86Q59 86 58 78Z" fill="#3c3548"/>
+<path d="M64 86V91M64 91Q58 97 54 91M64 91Q70 97 74 91" fill="none" stroke="#3c3548" stroke-width="3" stroke-linecap="round"/>
+<path d="M44 84 23 81M44 91 23 95M84 84 105 81M84 91 105 95" stroke="#3c3548" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="47" cy="59" r="3" fill="#ffffff" opacity=".9"/><circle cx="81" cy="59" r="3" fill="#ffffff" opacity=".9"/>
+</svg>
